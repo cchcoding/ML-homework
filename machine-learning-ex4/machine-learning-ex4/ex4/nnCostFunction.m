@@ -69,16 +69,14 @@ a3 = sigmoid(z3);
 
 reg = lambda/(2*m)*((sum(sum(Theta1(:,2:end) .^2))) ...
                     + sum(sum(Theta2(:,2:end) .^2)))
-
+% matrix for results y
 y_new = zeros(m, num_labels);
+I = eye(num_labels);
 for i = 1:m,
-  for k = 1:num_labels,
-    if y(i) == k,
-      y_new(i,k) = 1;
-    end
-  end
+ y_new(i,:) = I(y(i),:);
 end
 
+%Cost function for NN
 J = (-1/m) * sum(sum((y_new .*log(a3))+((1-y_new) .*log(1-a3)))) + reg;
     
 
