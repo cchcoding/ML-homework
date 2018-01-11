@@ -22,11 +22,20 @@ sigma = 0.3;
 %  Note: You can compute the prediction error using 
 %        mean(double(predictions ~= yval))
 %
+bestprediction = 1000;
 
-
-
-
-
+for Cval = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30],
+  for sigmaval = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30],
+    model= svmTrain(X, y, Cval, @(x1, x2) gaussianKernel(x1, x2, sigmaval));
+    predictions = svmPredict(model, Xval);
+    prediction = mean(double(predictions ~= yval));
+    if prediction < bestprediction
+      bestprediction = prediction;
+      C = Cval;
+      sigma = sigmaval;
+    end
+  end
+end
 
 
 % =========================================================================
