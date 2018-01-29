@@ -25,14 +25,23 @@ centroids = zeros(K, n);
 %
 % Note: You can use a for-loop over the centroids to compute this.
 %
+% Previous method
+% idn = zeros(K, n);
+% for i = 1:m,
+%   for j = 1:K,
+%     if idx(i) == j,
+%       centroids(j, :) = centroids(j, :) + X(i, :);
+%       idn(j, :) = idn(j, :) + 1;
+%       end
+%     end
+%   end
+  
+% centroids = centroids ./ idn;
 
-
-
-
-
-
-
-
+for i=1 :K
+  centroids(i, :) = mean(X([find(idx == i)], :));
+end
+ 
 % =============================================================
 
 

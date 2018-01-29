@@ -20,13 +20,18 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
-
-
-
-
-
-
-
+m = size(X, 1);
+for i = 1:m,
+  d_int = 10000;
+  for j = 1:K,
+    d = sum((X(i,:) - centroids(j,:)) .^2);
+    if d < d_int,
+      d_int = d;
+      idx(i) = j;
+    end
+  end
+end
+      
 % =============================================================
 
 end
